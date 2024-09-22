@@ -46,6 +46,10 @@ RTA.clients.qBittorrentV2Adder = function(server, data, torrentname, label, dir)
 					RTA.displayResponse("Failure", "Adding the torrent failed:\n" + addText, true);
 				} else {
 					RTA.displayResponse("Success", "Torrent added successfully to " + server.name + ".");
+					// Close the current tab
+					chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+						chrome.tabs.remove(tabs[0].id);
+					});
 				}
 			})
 			.catch(error => {
